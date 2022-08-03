@@ -42,6 +42,7 @@ export default {
     winners: Array
   },
   methods: {
+    // A square is clicked
     onMove(x, y) {
       this.$emit('move', x, y);
     }

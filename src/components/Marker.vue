@@ -2,8 +2,8 @@
   <div class="marker" :class="{ 'winner': winner }">
     <div class="container">
       <div class="mark">
-        <img v-if="state === States.X" :src="XSymbol" alt="X" />
-        <img v-if="state === States.O" :src="OSymbol" alt="O" />
+        <img v-if="state === STATES.X" :src="X_SYMBOL" alt="X" />
+        <img v-if="state === STATES.O" :src="O_SYMBOL" alt="O" />
       </div>
     </div>
   </div>
@@ -20,12 +20,11 @@ export default {
     state: String,
     winner: Boolean
   },
-  data() {
-    return {
-      XSymbol,
-      OSymbol,
-      States
-    }
+  created() {
+    // Add constants to the scope so they're available to the template
+    this.X_SYMBOL = XSymbol;
+    this.O_SYMBOL = OSymbol;
+    this.STATES = States;
   }
 }
 </script>
