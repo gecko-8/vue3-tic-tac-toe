@@ -1,32 +1,29 @@
 <template>
-  <div class="marker" :class="{ 'winner': winner }">
+  <div class="marker" :class="markerClass">
     <div class="container">
       <div class="mark">
-        <img v-if="state === STATES.X" :src="X_SYMBOL" alt="X" />
-        <img v-if="state === STATES.O" :src="O_SYMBOL" alt="O" />
+        <img v-if="state === States.X" :src="XSymbol" alt="X" />
+        <img v-if="state === States.O" :src="OSymbol" alt="O" />
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { States } from '../helpers/gameTools';
+<script setup>
+import { computed } from 'vue';
 
+import { States } from '../helpers/gameTools';
 import XSymbol from '../assets/x-symbol-svgrepo-com.svg';
 import OSymbol from '../assets/o-symbol-svgrepo-com.svg';
 
-export default {
-  props: {
-    state: String,
-    winner: Boolean
-  },
-  created() {
-    // Add constants to the scope so they're available to the template
-    this.X_SYMBOL = XSymbol;
-    this.O_SYMBOL = OSymbol;
-    this.STATES = States;
-  }
-}
+// Props
+const props = defineProps({
+  state: String,
+  winner: Boolean
+});
+
+// Computed Properties
+const markerClass = computed(() => props.winner ? 'winner' : '');
 </script>
 
 <style scoped>

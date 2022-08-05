@@ -30,24 +30,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Marker from './Marker.vue';
 
-export default {
-  components: {
-    Marker
-  },
-  props: {
-    game: Object,
-    winners: Array
-  },
-  methods: {
-    // A square is clicked
-    onMove(x, y) {
-      this.$emit('move', x, y);
-    }
-  }
-}
+defineProps({
+  game: Object,
+  winners: Array
+});
+
+const emit = defineEmits(['move']);
+
+const onMove = (x, y) => emit('move', x, y);
 </script>
 
 <style scoped>

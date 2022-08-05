@@ -1,23 +1,16 @@
 <template>
   <div>
-    <h2 v-if="player === STATES.X" class="win">X Is the Winner!</h2>
-    <h2 v-if="player === STATES.O" class="win">O Is the Winner!</h2>
-    <h2 v-if="!player" class="scratch">No Winner</h2>
+    <h2 v-if="player === States.X" class="win">X Is the Winner!</h2>
+    <h2 v-else-if="player === States.O" class="win">O Is the Winner!</h2>
+    <h2 v-else="!player" class="scratch">No Winner</h2>
   </div>
 </template>
 
-<script>
+<script setup>
 import { States } from '../helpers/gameTools';
 
-export default {
-  props: {
-    player: String
-  },
-  created() {
-    // Add constants to the scope so they're available to the template
-    this.STATES = States;
-  }
-}
+// Props
+defineProps(['player']);
 </script>
 
 <style scoped>
