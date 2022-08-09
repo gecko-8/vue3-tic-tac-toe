@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted } from 'vue';
+import { reactive } from 'vue';
 
 import Board from './Board.vue';
 import Winner from './Winner.vue';
