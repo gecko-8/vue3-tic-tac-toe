@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { ref } from 'vue';
 
 import Board from './Board.vue';
 import Winner from './Winner.vue';
@@ -19,20 +19,20 @@ import Winner from './Winner.vue';
 import { States, getCleanGame, cloneGame, testGameComplete } from '../helpers/gameTools';
 
 // Data
-const gameData = reactive({ game: getCleanGame() });
+const game = ref(getCleanGame());
 
 // Event Handlers
 const startGameHandler = () => {
-  gameData.game = getCleanGame();
+  game.value = getCleanGame();
 }
 
 const moveHandler = (x, y) => {
-  const currentMark = gameData.game.board[x][y];
+  const currentMark = game.value.board[x][y];
 
-  if (currentMark === States.NONE && !gameData.game.complete) {
-    let updatedGame = cloneGame(gameData.game);
-    updatedGame.moves = gameData.game.moves + 1;
-    updatedGame.board[x][y] = gameData.game.currentPlayer;
+  if (currentMark === States.NONE && !game.value.complete) {
+    let updatedGame = cloneGame(game.value);
+    updatedGame.moves = game.value.moves + 1;
+    updatedGame.board[x][y] = game.value.currentPlayer;
 
     // Test for a win condition
     const winnerInfo = testGameComplete(updatedGame);
@@ -44,7 +44,7 @@ const moveHandler = (x, y) => {
       updatedGame.currentPlayer = updatedGame.currentPlayer === States.X ? States.O : States.X;
     }
 
-    gameData.game = updatedGame;
+    game.value = updatedGame;
   }
 }
 </script>
