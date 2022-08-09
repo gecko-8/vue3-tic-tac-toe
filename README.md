@@ -9,8 +9,8 @@ This project demonstrates building a simple Tic Tac Toe game using the Vue3 Opti
 
 ## Try It on StackBlitz
 
-Options API - [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/gecko-8/vue3-tic-tac-toe?branch=options)  
-Composition API - [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/gecko-8/vue3-tic-tac-toe?branch=composition) 
+Options API - [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/gecko-8/vue3-tic-tac-toe/tree/options)  
+Composition API - [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/gecko-8/vue3-tic-tac-toe/tree/composition) 
 
 ## To Try on Your Computer
 
