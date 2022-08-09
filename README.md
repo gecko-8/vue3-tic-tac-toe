@@ -1,6 +1,6 @@
 # vue3-tic-tac-toe
 
-This project demonstrates building a simple Tic Tac Toe game using the Vue3 Options and Composition APIs.
+This project demonstrates building a simple Tic Tac Toe game using the Vue3 Options and Composition APIs. To view the same game in React, checkout [React Tic Tac Toe](https://github.com/gecko-8/vue3-tic-tac-toe).
 
 ## Notes
 
