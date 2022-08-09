@@ -1,11 +1,11 @@
 <template>
-  <div v-if="gameData.game != null" class="game">
+  <div v-if="game != null" class="game">
     <div class="game-board-container">
-      <Board :game="gameData.game.board" :winners="gameData.game.winnerCells" @move="moveHandler" />
-      <Winner v-if="gameData.game.complete" :player="gameData.game.winner" />
+      <Board :game="game.board" :winners="game.winnerCells" @move="moveHandler" />
+      <Winner v-if="game.complete" :player="game.winner" />
     </div>
     <div class="game-controls">
-      <button class="new-game-button" @click="startGameHandler">{{ gameData.game.complete ? "New Game" : "Restart Game" }}</button>
+      <button class="new-game-button" @click="startGameHandler">{{ game.complete ? "New Game" : "Restart Game" }}</button>
     </div>
   </div>
 </template>
