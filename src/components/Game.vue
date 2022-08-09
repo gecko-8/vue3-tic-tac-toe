@@ -1,59 +1,50 @@
 <template>
-  <div v-if="game != null" class="game">
+  <div v-if="gameData.game != null" class="game">
     <div class="game-board-container">
-      <Board :game="game.board" :winners="game.winnerCells" @move="moveHandler" />
-      <Winner v-if="game.complete" :player="game.winner" />
+      <Board :game="gameData.game.board" :winners="gameData.game.winnerCells" @move="moveHandler" />
+      <Winner v-if="gameData.game.complete" :player="gameData.game.winner" />
     </div>
     <div class="game-controls">
-      <button class="new-game-button" @click="startGameHandler">{{ game.complete ? "New Game" : "Restart Game" }}</button>
+      <button class="new-game-button" @click="startGameHandler">{{ gameData.game.complete ? "New Game" : "Restart Game" }}</button>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { reactive, ref, onMounted } from 'vue';
+
 import Board from './Board.vue';
 import Winner from './Winner.vue';
 
 import { States, getCleanGame, cloneGame, testGameComplete } from '../helpers/gameTools';
 
-export default {
-  components: {
-    Board,
-    Winner
-  },
-  data() {
-    return {
-      game: null
+// Data
+const gameData = reactive({ game: getCleanGame() });
+
+// Event Handlers
+const startGameHandler = () => {
+  gameData.game = getCleanGame();
+}
+
+const moveHandler = (x, y) => {
+  const currentMark = gameData.game.board[x][y];
+
+  if (currentMark === States.NONE && !gameData.game.complete) {
+    let updatedGame = cloneGame(gameData.game);
+    updatedGame.moves = gameData.game.moves + 1;
+    updatedGame.board[x][y] = gameData.game.currentPlayer;
+
+    // Test for a win condition
+    const winnerInfo = testGameComplete(updatedGame);
+    if (winnerInfo) { // We have a WINNER!
+      updatedGame.complete = true;
+      updatedGame.winner = winnerInfo.winner;
+      updatedGame.winnerCells = winnerInfo.winnerCells;
+    } else {
+      updatedGame.currentPlayer = updatedGame.currentPlayer === States.X ? States.O : States.X;
     }
-  },
-  methods: {
-    startGameHandler() {
-      this.game = getCleanGame();
-    },
-    moveHandler(x, y) {
-      const currentMark = this.game.board[x][y];
 
-      if (currentMark === States.NONE && !this.game.complete) {
-        let updatedGame = cloneGame(this.game);
-        updatedGame.moves = this.game.moves + 1;
-        updatedGame.board[x][y] = this.game.currentPlayer;
-
-        // Test for a win condition
-        const winnerInfo = testGameComplete(updatedGame);
-        if (winnerInfo) { // We have a WINNER!
-          updatedGame.complete = true;
-          updatedGame.winner = winnerInfo.winner;
-          updatedGame.winnerCells = winnerInfo.winnerCells;
-        } else {
-          updatedGame.currentPlayer = updatedGame.currentPlayer === States.X ? States.O : States.X;
-        }
-
-        this.game = updatedGame;
-      }
-    }
-  },
-  mounted() {
-    this.game = getCleanGame();
+    gameData.game = updatedGame;
   }
 }
 </script>
